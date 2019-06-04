@@ -2,7 +2,13 @@ const toDoList = {
   todos: [],
 
   displayTodos: function() {
-    console.log(this.todos);
+    if (this.todos.length === 0) {
+      console.log("Nothing to do here...");
+    } else {
+      for (let i = 0; i < this.todos.length; i++) {
+        console.log(`To do #${i + 1}: ${this.todos[i].todoText}`);
+      }
+    }
   },
 
   addTodos: function(todoText) {
