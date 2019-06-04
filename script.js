@@ -5,8 +5,13 @@ const toDoList = {
     if (this.todos.length === 0) {
       console.log("Nothing to do here...");
     } else {
+      //if not empty, print
       for (let i = 0; i < this.todos.length; i++) {
-        console.log(`To do #${i + 1}: ${this.todos[i].todoText}`);
+        if (this.todos[i].completed === true) {
+          console.log(`(X) To do #${i + 1}: ${this.todos[i].todoText}`);
+        } else {
+          console.log(`( ) To do #${i + 1}: ${this.todos[i].todoText}`);
+        }
       }
     }
   },
