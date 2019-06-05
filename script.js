@@ -38,7 +38,7 @@ const toDoList = {
     let todo = this.todos[index];
     todo.completed = !todo.completed;
   },
-  //------------------doesnt work...-----------------------
+  //-----------------yey--------------------
   toggleAll: function() {
     let complete = 0;
     for (let i = 0; i < this.todos.length; i++) {
@@ -46,12 +46,13 @@ const toDoList = {
         complete++;
       }
       if (complete === this.todos.length) {
-        this.todos[i].completed = false;
-      } else if (complete !== this.todos.length) {
-        this.todos[i].completed = true;
+        for (let i = 0; i < this.todos.length; i++) {
+          this.todos[i].completed = false;
+        }
       } else {
         this.todos[i].completed = true;
       }
     }
+    this.displayTodos();
   }
 };
