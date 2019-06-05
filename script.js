@@ -37,5 +37,21 @@ const toDoList = {
   toggleCompleted: function(index) {
     let todo = this.todos[index];
     todo.completed = !todo.completed;
+  },
+  //------------------doesnt work...-----------------------
+  toggleAll: function() {
+    let complete = 0;
+    for (let i = 0; i < this.todos.length; i++) {
+      if (this.todos[i].completed === true) {
+        complete++;
+      }
+      if (complete === this.todos.length) {
+        this.todos[i].completed = false;
+      } else if (complete !== this.todos.length) {
+        this.todos[i].completed = true;
+      } else {
+        this.todos[i].completed = true;
+      }
+    }
   }
 };
