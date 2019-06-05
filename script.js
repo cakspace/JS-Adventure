@@ -38,15 +38,16 @@ const toDoList = {
     let todo = this.todos[index];
     todo.completed = !todo.completed;
   },
-  //-----------------yey--------------------
+
   toggleAll: function() {
     let complete = 0;
-    for (let i = 0; i < this.todos.length; i++) {
+    let totalTodo = this.todos.length;
+    for (let i = 0; i < totalTodo; i++) {
       if (this.todos[i].completed === true) {
         complete++;
       }
-      if (complete === this.todos.length) {
-        for (let i = 0; i < this.todos.length; i++) {
+      if (complete === totalTodo) {
+        for (let i = 0; i < totalTodo; i++) {
           this.todos[i].completed = false;
         }
       } else {
