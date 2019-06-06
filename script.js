@@ -2,6 +2,7 @@ const toDoList = {
   todos: [],
 
   displayTodos: function() {
+    debugger;
     if (this.todos.length === 0) {
       console.log("Nothing to do here...");
     } else {
@@ -57,3 +58,13 @@ const toDoList = {
     this.displayTodos();
   }
 };
+
+const displayTodosBtn = document.getElementById("displayTodosBtn");
+const toggleAllBtn = document.getElementById("toggleAllBtn");
+
+displayTodosBtn.addEventListener("click", function() {
+  toDoList.displayTodos();
+});
+toggleAllBtn.addEventListener("click", function() {
+  toDoList.toggleAll();
+});
