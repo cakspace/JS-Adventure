@@ -2,7 +2,6 @@ const toDoList = {
   todos: [],
 
   displayTodos: function() {
-    debugger;
     if (this.todos.length === 0) {
       console.log("Nothing to do here...");
     } else {
@@ -22,22 +21,23 @@ const toDoList = {
       todoText: todoText,
       completed: false
     });
-    console.log(this.todos);
+    this.displayTodos();
   },
 
   changeTodos: function(index, todoText) {
     this.todos[index].todoText = todoText;
-    console.log(this.todos);
+    this.displayTodos();
   },
 
   removeTodos: function(index) {
     this.todos.splice(index, 1);
-    console.log(this.todos);
+    this.displayTodos();
   },
 
   toggleCompleted: function(index) {
     let todo = this.todos[index];
     todo.completed = !todo.completed;
+    this.displayTodos();
   },
 
   toggleAll: function() {
@@ -59,12 +59,33 @@ const toDoList = {
   }
 };
 
-const displayTodosBtn = document.getElementById("displayTodosBtn");
-const toggleAllBtn = document.getElementById("toggleAllBtn");
-
-displayTodosBtn.addEventListener("click", function() {
-  toDoList.displayTodos();
-});
-toggleAllBtn.addEventListener("click", function() {
-  toDoList.toggleAll();
-});
+const handler = {
+  displayTodos: function() {
+    toDoList.displayTodos();
+  },
+  toggleAll: function() {
+    toDoList.toggleAll();
+  },
+  addTodos: function() {
+    let addTodosText = document.getElementById("addToDosText");
+    toDoList.addTodos(addTodosText.value);
+    addTodosText.value = "";
+  },
+  changeTodos: function() {
+    let changeToDoIndex = document.getElementById("changeToDoIndex");
+    let changeToDoText = document.getElementById("changeToDoText");
+    toDoList.changeTodos(changeToDoIndex.valueAsNumber, changeToDoText.value);
+    changeToDoIndex.valueAsNumber = "";
+    changeToDoText.value = "";
+  },
+  deleteToDoIndex: function() {
+    let deleteToDoIndex = document.getElementById("deleteToDoIndex");
+    toDoList.removeTodos(deleteToDoIndex.valueAsNumber);
+    deleteToDoIndex.valueAsNumber = "";
+  },
+  toggleCompleted: function() {
+    let toggleCompletedIndex = document.getElementById("toggleCompletedIndex");
+    toDoList.toggleCompleted(toggleCompletedIndex.valueAsNumber);
+    toggleCompletedIndex.valueAsNumber = "";
+  }
+};
