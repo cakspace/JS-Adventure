@@ -1,0 +1,49 @@
+<script src="../tinytest.js"></script>
+
+<script>
+  // function forEach here
+  function forEach(array, callback, optionalThis) {
+    let forEachCallBack = callback;
+    if (optionalThis) {
+      forEachCallBack = callback.bind(optionalThis);
+    }
+
+    for (let i = 0; i < array.length; i++) {
+      forEachCallBack(array[i], i, array);
+    }
+  }
+  tests({
+    "It should run the callback function by array.length times": function() {
+      let x = 0;
+      forEach([1, 2, 3], function() {
+        x++;
+      });
+      eq(x, 3);
+    },
+    "It should pass the current element being processed of the array to the callback function as 1st argument": function() {
+      forEach([7], function(element) {
+        eq(7, element);
+      });
+    },
+    "It should pass the index of the current element to the callback function as 2nd argument ": function() {
+      forEach([1], function(element, index) {
+        eq(index, 0);
+      });
+    },
+    "It should pass the original array to the callback function as the 3th argument": function() {
+      let testArray = [1, 2, 3];
+      forEach(testArray, function(element, index, array) {
+        eq(testArray, array);
+      });
+    },
+    "It should pass an editable this object as optional argument ": function() {
+      forEach(
+        [1],
+        function() {
+          eq(this.testing, "Test");
+        },
+        { testing: "Test" }
+      );
+    }
+  });
+</script>
