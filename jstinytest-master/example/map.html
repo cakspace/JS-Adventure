@@ -1,0 +1,83 @@
+<script src="../tinytest.js"></script>
+
+<script>
+  // map method creates a NEW ARRAY with the results of calling a provided function on every element in the calling array.
+  // callbacks is invoke only for indexes w/ assigned values including undefined.
+  // callback is NOT called for missing elements of the array: deleted, never been assigned a value
+  // callback is invoked with 3 values: element, index, array; optional: thisArg
+  function map(array, callback, optionalThis) {
+    let thisCallback = callback;
+
+    if (optionalThis) {
+      thisCallback = callback.bind(optionalThis);
+    }
+
+    var returnedArray = [];
+    for (let i = 0; i < array.length; i++) {
+      if (i in array) {
+        returnedArray[i] = thisCallback(array[i], i, array);
+      }
+    }
+    return returnedArray;
+  }
+
+  tests({
+    "It should run the callback function by array.length times": function() {
+      let callbackRunCount = 0;
+      map([1, 2, 3], function() {
+        callbackRunCount++;
+      });
+      eq(callbackRunCount, 3);
+    },
+    "It should pass the current element being processed of the array to the callback function as 1st argument": function() {
+      map([1], function(element) {
+        eq(element, 1);
+      });
+    },
+    "It should pass the index of the current element to the callback function as 2nd argument ": function() {
+      map([1], function(element, index) {
+        eq(0, index);
+      });
+    },
+    "It should pass the original array to the callback function as the 3th argument": function() {
+      let originalArray = [1];
+      map(originalArray, function(element, index, array) {
+        eq(array, originalArray);
+      });
+    },
+    "It should pass an editable this object as optional argument ": function() {
+      map(
+        [1],
+        function(element, index, array) {
+          eq(this.editableThis, "I am an editable this object");
+        },
+        { editableThis: "I am an editable this object" }
+      );
+    },
+    "It return an array ": function() {
+      let returnedArray = map([1], function(element, index, array) {});
+      eq(Array.isArray(returnedArray), true);
+    },
+    "It should return a new array not equal to the original array": function() {
+      let originalArray = [1];
+      let returnedArray = map(originalArray, function(
+        element,
+        index,
+        originalArray
+      ) {});
+      eq(returnedArray !== originalArray, true);
+    },
+    "It should return a new array with elements that has been transformed by the callback function ": function() {
+      let originalArray = [, 2];
+      let returnedArray = map(originalArray, function(
+        element,
+        index,
+        originalArray
+      ) {
+        return element * 2;
+      });
+      eq(returnedArray[1], 4);
+      eq(0 in returnedArray, false);
+    }
+  });
+</script>

@@ -1,0 +1,69 @@
+<script src="../tinytest.js"></script>
+
+<script>
+  // function filter here
+  function filter(array, callback, thisArg) {
+    let newCallback = callback;
+
+    if (thisArg) {
+      //if optional this exists
+      newCallback = callback.bind(thisArg);
+    }
+    let returnArray = [];
+    for (let i = 0; i < array.length; i++) {
+      if (newCallback(array[i], [i], array)) {
+        returnArray.push(array[i]);
+      }
+    }
+    return returnArray;
+  } // function filter end
+
+  tests({
+    "It should run the callback function by array.length times": function() {
+      let callbackRunCount = 0;
+      filter([1, 2, 3], function() {
+        callbackRunCount++;
+      });
+      eq(callbackRunCount, 3);
+    },
+    "It should pass the current element being processed of the array to the callback function as 1st argument": function() {
+      filter([1], function(number) {
+        eq(number, 1);
+      });
+    },
+    "It should pass the index of the current element to the callback function as 2nd argument ": function() {
+      filter([1], function(number, index) {
+        eq(index, 0);
+      });
+    },
+    "It should pass the original array to the callback function as the 3th argument": function() {
+      let originalArray = [1, 2, 3];
+      filter(originalArray, function(number, index, testArray) {
+        eq(testArray, originalArray);
+      });
+    },
+    "It should pass an editable this object as optional argument ": function() {
+      filter(
+        [1],
+        function(number, index, testArray) {
+          eq(this.editableThisObject, "I am an editable this object");
+        },
+        {
+          editableThisObject: "I am an editable this object"
+        }
+      );
+    },
+    "It should return a new array not equal to the original array": function() {
+      let newArray = [];
+      let returnArray = filter(newArray, function() {});
+      eq(newArray !== returnArray, true); // (not equal is true, true)
+    },
+    "It should return elements that passed the callback function's test (as true)": function() {
+      let returnArray = filter([1, 2, 3], function(number) {
+        return number > 2;
+      });
+      eq(returnArray[0], 3);
+      eq(returnArray.length, 1);
+    }
+  });
+</script>

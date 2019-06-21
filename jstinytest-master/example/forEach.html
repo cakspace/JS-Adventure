@@ -7,7 +7,6 @@
     if (optionalThis) {
       forEachCallBack = callback.bind(optionalThis);
     }
-
     for (let i = 0; i < array.length; i++) {
       forEachCallBack(array[i], i, array);
     }
