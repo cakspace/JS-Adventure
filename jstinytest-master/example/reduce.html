@@ -1,0 +1,68 @@
+<script src="../tinytest.js"></script>
+
+<script>
+  tests({
+    "If initialValue, callback functions should run array.length times": function() {},
+    "If NO initialValue, callback functions should run array.length -1 times": function() {
+      fail();
+    },
+    "If initialValue, previousValue should start with initialValue": function() {
+      fail();
+    },
+    "If initialValue, currentValue should be equal to first value in array": function() {
+      fail();
+    },
+    "If initialValue, callback will start at index 0": function() {
+      fail();
+    },
+    "If initialValue, array is empty, return initialValue, w/o calling callback ": function() {
+      fail();
+    },
+    "If no initialValue, previousValue should start at array[0]": function() {
+      fail();
+    },
+    "If no initialValue, currentValue should be equal to second value in array ": function() {
+      fail();
+    },
+    "If no initialValue, callback will start at index 1": function() {
+      fail();
+    },
+    "If no initialValue, array is EMPTY, throw TypeError ": function() {
+      fail();
+    },
+    "If no initialValue, array has 1 element, return the single element, w/o calling callback": function() {
+      fail();
+    },
+    "It should reduce values in the array  ": function() {
+      fail();
+    },
+    "It should exclude holes": function() {
+      fail();
+    },
+    "It should pass as array as 4th arg to callback ": function() {
+      fail();
+    }
+  });
+</script>
+<!-- !! callback parameters: 
+MDN docs                  what we use above
+previousValue     ->      resultSoFar
+currentValue      ->      array[i]
+currentIndex      ->      i
+array             ->      array -->
+<!-- Case A should now look like this:
+If initialValue, previousValue should be equal to initialValue  //start w/ initialValue
+If initialValue, currentValue should be equal to first value in array
+If initialValue, callback will start at index 0
+If initialValue, array is empty, return initialValue, w/o calling callback 
+
+Case B should now look like this:
+If no initialValue, previousValue should be equal to first value in array // start array[0]
+If no initialValue, currentValue should be equal to second value in array // array[1]
+If no initialValue, callback will start at index 1
+If no initialValue, array is EMPTY, throw TypeError  //empty array [], [,,,,]
+If no initialValue, array has 1 element, return the single element, w/o calling callback
+
+MAIN Case:  It should reduce values in the array    
+        It should exclude holes
+        It should pass as array as 4th arg to callback -->
